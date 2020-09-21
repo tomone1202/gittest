@@ -1,37 +1,47 @@
 <template>
   <div>
     <div class="container">
-      <h2 class="modal-title">{{product.title}}</h2>
+      <h2 class="modal-title">{{ product.title }}</h2>
       <div class="row">
         <div class="col">
           <img :src="product.imageUrl" class="img-fluid" />
           <blockquote>
-            <span class="badge badge-secondary">{{product.category}}</span>
+            <span class="badge badge-secondary">{{ product.category }}</span>
           </blockquote>
         </div>
         <div class="col">
           <blockquote>
-            <p class="mb-0">{{product.content}}</p>
-            <span class="badge badge-secondary">{{product.category}}</span>
-            <footer class="blockquote-footer text-right">{{product.description}}</footer>
+            <p class="mb-0">{{ product.content }}</p>
+            <span class="badge badge-secondary">{{ product.category }}</span>
+            <footer class="blockquote-footer text-right">
+              {{ product.description }}
+            </footer>
           </blockquote>
           <div class="d-flex justify-content-between align-items-baseline">
-            <div class="h4" v-if="!product.price">{{product.origin_price}}元</div>
-            <div class="h6" v-if="product.price">{{product.origin_price}}元</div>
-            <div class="h4" v-if="product.price">{{product.price}}元</div>
+            <div class="h4" v-if="!product.price">
+              {{ product.origin_price }}元
+            </div>
+            <div class="h6" v-if="product.price">
+              {{ product.origin_price }}元
+            </div>
+            <div class="h4" v-if="product.price">{{ product.price }}元</div>
           </div>
           <select name class="form-control mt-3" v-model="product.num" id>
-            <option :value="num" v-for="num in 10 " :key="num">選購{{num}}{{product.unit}}</option>
+            <option :value="num" v-for="num in 10" :key="num"
+              >選購{{ num }}{{ product.unit }}</option
+            >
           </select>
           <div class="text-muted text-nowrap mr-3">
             小計
-            <strong>{{product.num*product.price}}元</strong>
+            <strong>{{ product.num * product.price }}元</strong>
           </div>
           <button
             type="button"
             class="btn btn-primary"
-            @click="addToCart(product.id,product.num)"
-          >加到購物車</button>
+            @click="addToCart(product.id, product.num)"
+          >
+            加到購物車
+          </button>
         </div>
       </div>
       <hr />
@@ -41,18 +51,22 @@
           <div class="card border-0 shadow-sm">
             <div
               style="height: 150px; background-size: cover; background-position: center"
-              :style="{backgroundImage:`url(${item.imageUrl})`}"
+              :style="{ backgroundImage: `url(${item.imageUrl})` }"
             ></div>
             <div class="card-body">
-              <p class="badge badge-secondary float-right ml-2">{{item.category}}</p>
+              <p class="badge badge-secondary float-right ml-2">
+                {{ item.category }}
+              </p>
               <h5 class="card-title">
-                <a href="#" class="text-dark">{{item.title}}</a>
+                <a href="#" @click="intoProuduct(item.id)" class="text-dark">{{
+                  item.title
+                }}</a>
               </h5>
-              <p class="card-text">{{item.description}}</p>
+              <p class="card-text">{{ item.description }}</p>
               <div class="d-flex justify-content-between align-items-baseline">
                 <!-- <div class="h5">2,800 元</div> -->
-                <del class="h6">原價 {{item.origin_price | currency}} 元</del>
-                <div class="h5">現在只要 {{item.price | currency}} 元</div>
+                <del class="h6">原價 {{ item.origin_price | currency }} 元</del>
+                <div class="h5">現在只要 {{ item.price | currency }} 元</div>
               </div>
             </div>
           </div>
@@ -147,6 +161,17 @@ export default {
         vm.status.lodingItem = "";
       });
     },
+    intoProuduct(productId) {
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${productId}`; // const api = "https://vue-course-api.hexschool.io/api/redbs/products/all";
+      const vm = this;
+
+      vm.status.lodingItem = productId;
+      this.$http.get(api).then((response) => {
+        vm.$router.push(`/product/${response.data.product.id}`);
+        vm.status.lodingItem = "";
+        window.location.reload();
+      });
+    },
   },
   created() {
     this.productId = this.$route.params.productId;
@@ -156,5 +181,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
