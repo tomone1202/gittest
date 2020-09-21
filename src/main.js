@@ -5,6 +5,10 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import 'bootstrap'
 import './bus'
+import Vuex from 'vuex'
+import store from './store'
+
+Vue.use(Vuex)
 
 
 import axios from 'axios'
@@ -62,6 +66,7 @@ Vue.filter('TFT', TrueFalseTranslate)
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app');
 

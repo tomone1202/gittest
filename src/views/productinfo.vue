@@ -63,6 +63,8 @@
 </template>
 
 <script>
+import $ from "jquery";
+
 export default {
   data() {
     return {
@@ -140,7 +142,7 @@ export default {
       const cart = { product_id: id, qty };
       this.$http.post(api, { data: cart }).then((response) => {
         console.log("response", response.data);
-        vm.getCart();
+
         $("#productModal").modal("hide");
         vm.status.lodingItem = "";
       });

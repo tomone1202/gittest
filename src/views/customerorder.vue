@@ -6,7 +6,7 @@
       <div class="row">
         <div class="col-3">
           <div
-            class="list-group mt-5 position-fixed"
+            class="list-group mt-5 position-fixed display-md-none"
             style="width:200px"
             id="list-tab"
             role="tablist"
@@ -286,7 +286,7 @@ export default {
   data() {
     return {
       category: "",
-      products: [],
+      // products: [],
       product: {},
       form: {
         user: {
@@ -305,7 +305,7 @@ export default {
       carts: [],
       tempProduct: {},
       isNew: false,
-      isLoading: false,
+
       status: { fileUpLoading: false },
     };
   },
@@ -322,20 +322,18 @@ export default {
         return vm.products;
       }
     },
+    isLoading() {
+      return this.$store.state.isLoading;
+    },
+    products() {
+      return this.$store.state.products;
+    },
   },
 
   methods: {
     getProducts() {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`; // const api = "https://vue-course-api.hexschool.io/api/redbs/products/all";
-      const vm = this;
-      vm.isLoading = true;
-      this.$http.get(api).then((response) => {
-        vm.isLoading = false;
-        vm.products = response.data.products;
-        console.log("response", response.data);
-        // vm.pagination = response.data.pagination;
-        console.log("資料5678", vm.products);
-      });
+      this.$store.dispatch("getCart");
+      this.$store.dispatch("getProducts");
     },
     getProuduct(id) {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${id}`; // const api = "https://vue-course-api.hexschool.io/api/redbs/products/all";
@@ -371,6 +369,7 @@ export default {
         vm.getCart();
         $("#productModal").modal("hide");
         vm.status.lodingItem = "";
+        this.$store.dispatch("getCart");
       });
     },
     getCart() {
@@ -392,6 +391,7 @@ export default {
       this.$http.delete(api).then((response) => {
         vm.getCart();
         // console.log("刪除購物車", response);
+        this.$store.dispatch("getCart");
       });
     },
     addCouponCode() {

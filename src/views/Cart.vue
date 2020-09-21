@@ -231,6 +231,7 @@ export default {
       this.$http.delete(api).then((response) => {
         vm.getCart();
         // console.log("刪除購物車", response);
+        this.$store.dispatch("getCart");
       });
     },
     addCouponCode() {

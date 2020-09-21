@@ -17,9 +17,9 @@
           data-toggle="collapse"
           data-target="#navbarSupportedContent"
         >
-          <router-link class="nav-link" to="/">
+          <a class="nav-link">
             <span class="navbar-toggler-icon"></span>
-          </router-link>
+          </a>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -60,21 +60,16 @@
 <script>
 export default {
   data() {
-    return {
-      carts: "",
-    };
+    return {};
   },
   methods: {
     getCart() {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`; // const api = "https://vue-course-api.hexschool.io/api/redbs/products/all";
-      const vm = this;
-
-      this.$http.get(api).then((response) => {
-        vm.carts = response.data.data.carts.length;
-
-        console.log("購物車數量", response.data.data.carts.length);
-        // console.log("vm購物車", vm.carts);
-      });
+      this.$store.dispatch("getCart");
+    },
+  },
+  computed: {
+    carts() {
+      return this.$store.state.carts;
     },
   },
   created() {
