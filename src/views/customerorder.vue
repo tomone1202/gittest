@@ -15,57 +15,78 @@
               class="list-group-item list-group-item-action active"
               data-toggle="list"
               href="#"
-              @click.prevent="category=''"
-            >全部</a>
+              @click.prevent="category = ''"
+              >全部</a
+            >
             <a
               class="list-group-item list-group-item-action"
               data-toggle="list"
               href="#"
-              @click.prevent="category='樂器學習'"
-            >樂器學習</a>
+              @click.prevent="category = '樂器學習'"
+              >樂器學習</a
+            >
             <a
               class="list-group-item list-group-item-action"
               data-toggle="list"
               href="#"
-              @click.prevent="category='樂器買賣'"
-            >樂器買賣</a>
+              @click.prevent="category = '樂器買賣'"
+              >樂器買賣</a
+            >
             <a
               class="list-group-item list-group-item-action"
               data-toggle="list"
               href="#"
-              @click.prevent="category='聲音工程'"
-            >聲音工程</a>
+              @click.prevent="category = '聲音工程'"
+              >聲音工程</a
+            >
             <a
               class="list-group-item list-group-item-action"
               data-toggle="list"
               href="#"
-              @click.prevent="category='其他'"
-            >其他</a>
+              @click.prevent="category = '其他'"
+              >其他</a
+            >
           </div>
         </div>
         <div class="col-md-9">
           <!-- 模擬商城 -->
           <div class="row mt-4">
-            <div class="col-md-6 mb-4" v-for="item in filterData" :key="item.id">
+            <div
+              class="col-md-6 mb-4"
+              v-for="item in filterData"
+              :key="item.id"
+            >
               <div class="card border-0 shadow-sm">
                 <div
                   style="height: 150px; background-size: cover; background-position: center"
-                  :style="{backgroundImage:`url(${item.imageUrl})`}"
+                  :style="{ backgroundImage: `url(${item.imageUrl})` }"
                 ></div>
                 <div class="card-body">
                   <a
                     href="#"
                     class="badge badge-secondary float-right ml-2"
-                    @click="category=item.category"
-                  >{{item.category}}</a>
+                    @click="category = item.category"
+                    >{{ item.category }}</a
+                  >
                   <h5 class="card-title">
-                    <a href="#" class="text-dark" @click="intoProuduct(item.id)">{{item.title}}</a>
+                    <a
+                      href="#"
+                      class="text-dark"
+                      @click="intoProuduct(item.id)"
+                      >{{ item.title }}</a
+                    >
                   </h5>
-                  <p class="card-text">{{item.description}}</p>
-                  <div class="d-flex justify-content-between align-items-baseline">
+                  <p class="card-text">{{ item.description }}</p>
+                  <div
+                    class="d-flex justify-content-between align-items-baseline"
+                  >
                     <!-- <div class="h5">2,800 元</div> -->
-                    <del class="h6">原價 {{item.origin_price | currency}} 元</del>
-                    <div class="h5">現在只要 {{item.price | currency}} 元</div>
+                    <del class="h6"
+                      >原價 {{ item.origin_price | currency }} 元</del
+                    >
+                    <div class="h5">
+                      現在只要 {{ item.price | currency }} 元
+                    </div>
                   </div>
                 </div>
                 <div class="card-footer d-flex">
@@ -82,7 +103,10 @@
                     class="btn btn-outline-secondary btn-sm"
                     @click="intoProuduct(item.id)"
                   >
-                    <i class="fas fa-spinner fa-spin" v-if="status.lodingItem===item.id"></i>
+                    <i
+                      class="fas fa-spinner fa-spin"
+                      v-if="status.lodingItem === item.id"
+                    ></i>
                     查看更多
                   </button>
                   <button
@@ -90,7 +114,10 @@
                     class="btn btn-outline-danger btn-sm ml-auto"
                     @click="addToCart(item.id)"
                   >
-                    <i class="fas fa-spinner fa-spin" v-if="status.lodingItem===item.id"></i>
+                    <i
+                      class="fas fa-spinner fa-spin"
+                      v-if="status.lodingItem === item.id"
+                    ></i>
                     加到購物車
                   </button>
                 </div>
@@ -241,37 +268,52 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">{{product.title}}</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <h5 class="modal-title">{{ product.title }}</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
             <img :src="product.imageUrl" class="img-fluid" />
             <blockquote>
-              <p class="mb-0">{{product.content}}</p>
-              <span class="badge badge-secondary">{{product.category}}</span>
-              <footer class="blockquote-footer text-right">{{product.description}}</footer>
+              <p class="mb-0">{{ product.content }}</p>
+              <span class="badge badge-secondary">{{ product.category }}</span>
+              <footer class="blockquote-footer text-right">
+                {{ product.description }}
+              </footer>
             </blockquote>
             <div class="d-flex justify-content-between align-items-baseline">
-              <div class="h4" v-if="!product.price">{{product.origin_price}}元</div>
-              <div class="h6" v-if="product.price">{{product.origin_price}}元</div>
-              <div class="h4" v-if="product.price">{{product.price}}元</div>
+              <div class="h4" v-if="!product.price">
+                {{ product.origin_price }}元
+              </div>
+              <div class="h6" v-if="product.price">
+                {{ product.origin_price }}元
+              </div>
+              <div class="h4" v-if="product.price">{{ product.price }}元</div>
             </div>
             <select name class="form-control mt-3" v-model="product.num" id>
-              <option :value="num" v-for="num in 10 " :key="num">選購{{num}}{{product.unit}}</option>
+              <option :value="num" v-for="num in 10" :key="num"
+                >選購{{ num }}{{ product.unit }}</option
+              >
             </select>
           </div>
           <div class="modal-footer">
             <div class="text-muted text-nowrap mr-3">
               小計
-              <strong>{{product.num*product.price}}元</strong>
+              <strong>{{ product.num * product.price }}元</strong>
             </div>
             <button
               type="button"
               class="btn btn-primary"
-              @click="addToCart(product.id,product.num)"
-            >加到購物車</button>
+              @click="addToCart(product.id, product.num)"
+            >
+              加到購物車
+            </button>
           </div>
         </div>
       </div>
@@ -434,5 +476,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

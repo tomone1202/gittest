@@ -25,16 +25,36 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav">
             <li class="nav-item active">
-              <router-link class="nav-link" to="/">首頁</router-link>
+              <router-link
+                class="nav-link"
+                to="/"
+                data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+              >首頁</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/about">關於我們</router-link>
+              <router-link
+                class="nav-link"
+                to="/about"
+                data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+              >關於我們</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/customer_order">商城</router-link>
+              <router-link
+                class="nav-link"
+                to="/customer_order"
+                data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+              >商城</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/contact">聯絡我們</router-link>
+              <router-link
+                class="nav-link"
+                to="/contact"
+                data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+              >聯絡我們</router-link>
             </li>
             <li class="nav-item"></li>
           </ul>
@@ -45,7 +65,7 @@
             </h6>
           </router-link>
           <router-link class="nav-link mr-4" to="/cart">
-            <i class="fa fa-cart-plus text-warning fa-2x">{{carts}}</i>
+            <i class="fa fa-cart-plus text-warning fa-2x">{{ carts }}</i>
           </router-link>
 
           <router-link class="btn btn-warning mr-1 py-1 text-dark" to="/login">
@@ -78,5 +98,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
