@@ -2,18 +2,7 @@
 
 ## Project setup
 ```
-npm install
+1.直接yarn 或 npm i
+2.vue ui後載入這個專案 或直接npm run serve 進 http://localhost:8081/RedHomeMusic/
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
